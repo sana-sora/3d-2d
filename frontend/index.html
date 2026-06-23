@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぬいぐるみ型紙生成 - 3D-2D</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1>🧸 ぬいぐるみ型紙生成</h1>
+            <p>写真からぬいぐるみの型紙を自動生成</p>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main class="main">
+            <!-- ステップ表示 -->
+            <div class="steps">
+                <div class="step active" id="step-1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">画像アップロード</div>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">セグメンテーション</div>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">3Dメッシュ生成</div>
+                </div>
+                <div class="step" id="step-4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">型紙生成</div>
+                </div>
+                <div class="step" id="step-5">
+                    <div class="step-number">5</div>
+                    <div class="step-label">ダウンロード</div>
+                </div>
+            </div>
+
+            <!-- ステップ 1: 画像アップロード -->
+            <section class="step-content active" id="content-1">
+                <h2>ステップ 1: 画像をアップロード</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📸</div>
+                    <p>画像をドラッグ&ドロップするか、クリックして選択</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div id="imagePreview" style="display: none;">
+                    <h3>プレビュー</h3>
+                    <img id="previewImg" src="" alt="プレビュー" style="max-width: 100%; max-height: 300px;">
+                </div>
+
+                <div id="uploadStatus" class="status-message"></div>
+
+                <button id="nextBtn1" class="btn btn-primary" style="display: none;">次へ進む</button>
+            </section>
+
+            <!-- ステップ 2: セグメンテーション -->
+            <section class="step-content" id="content-2">
+                <h2>ステップ 2: セグメンテーション実行</h2>
+                <p>ぬいぐるみを自動抽出しています...</p>
+                
+                <div id="segmentationPreview" style="display: none;">
+                    <h3>セグメンテーション結果</h3>
+                    <img id="segmentImg" src="" alt="セグメンテーション" style="max-width: 100%; max-height: 300px;">
+                </div>
+
+                <div id="segmentationStatus" class="status-message"></div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="prevBtn2" class="btn btn-secondary">戻る</button>
+                    <button id="nextBtn2" class="btn btn-primary" style="display: none;">次へ進む</button>
+                </div>
+            </section>
+
+            <!-- ステップ 3: 3Dメッシュ生成 -->
+            <section class="step-content" id="content-3">
+                <h2>ステップ 3: 3Dメッシュ生成</h2>
+                <p>3Dメッシュを生成しています...</p>
+                
+                <div id="meshStatus" class="status-message"></div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="prevBtn3" class="btn btn-secondary">戻る</button>
+                    <button id="nextBtn3" class="btn btn-primary" style="display: none;">次へ進む</button>
+                </div>
+            </section>
+
+            <!-- ステップ 4: 型紙生成 -->
+            <section class="step-content" id="content-4">
+                <h2>ステップ 4: 型紙生成</h2>
+                <p>2D型紙を生成しています...</p>
+                
+                <div id="patternPreview" style="display: none;">
+                    <h3>型紙プレビュー</h3>
+                    <img id="patternImg" src="" alt="型紙" style="max-width: 100%; max-height: 400px; border: 1px solid #ccc;">
+                </div>
+
+                <div id="patternStatus" class="status-message"></div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="prevBtn4" class="btn btn-secondary">戻る</button>
+                    <button id="nextBtn4" class="btn btn-primary" style="display: none;">次へ進む</button>
+                </div>
+            </section>
+
+            <!-- ステップ 5: ダウンロード -->
+            <section class="step-content" id="content-5">
+                <h2>ステップ 5: 型紙をダウンロード</h2>
+                <p>型紙の準備ができました！</p>
+
+                <div class="download-buttons">
+                    <button id="downloadPdfBtn" class="btn btn-success">
+                        📄 PDFをダウンロード
+                    </button>
+                    <button id="downloadPngBtn" class="btn btn-success">
+                        🖼️ 画像をダウンロード
+                    </button>
+                </div>
+
+                <div id="downloadStatus" class="status-message"></div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="prevBtn5" class="btn btn-secondary">戻る</button>
+                    <button id="resetBtn" class="btn btn-primary">最初からやり直す</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ローディング表示 -->
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>処理中...</p>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
